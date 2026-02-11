@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Mein Countdown</title>
+</head>
+<body>
+  <h1>Erstelle deinen Countdown</h1>
+
+  <label>Wunsch/Name:</label>
+  <input type="text" id="wunschText" placeholder="Dein Wunsch">
+  <br><br>
+
+  <label>Datum & Uhrzeit:</label>
+  <input type="datetime-local" id="datumZeit">
+  <br><br>
+
+  <button onclick="startCountdown()">Countdown starten</button>
+
+  <h2 id="anzeige"></h2>
+
+  <!-- PushAlert Code -->
+  <script src="https://cdn.pushalert.co/integrate_<!-- PushAlert Unified Code -->
+<script type="text/javascript">
+    (function(d, t) {
+        var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        g.src = "https://cdn.pushalert.co/unified_911e5d5b4ee28e15e79e3800dcb2d31f.js";
+        s.parentNode.insertBefore(g, s);
+    }(document, "script"));
+</script>
+<!-- End PushAlert Unified Code -->.js" async></script>
+
+  <script>
+    function startCountdown() {
+      const wunsch = document.getElementById("wunschText").value;
+      const datum = new Date(document.getElementById("datumZeit").value).getTime();
+      const anzeige = document.getElementById("anzeige");
+
+      const timer = setInterval(function() {
+        const jetzt = new Date().getTime();
+        const distanz = datum - jetzt;
+
+        const tage = Math.floor(distanz / (1000*60*60*24));
+        const stunden = Math.floor((distanz % (1000*60*60*24)) / (1000*60*60));
+        const minuten = Math.floor((distanz % (1000*60*60)) / (1000*60));
+        const sekunden = Math.floor((distanz % (1000*60)) / 1000);
+
+        anzeige.innerHTML = wunsch + ": " + tage + "T " + stunden + "h " + minuten + "m " + sekunden + "s";
+
+        if(distanz < 0) {
+          clearInterval(timer);
+          anzeige.innerHTML = wunsch + " ist jetzt da!";
+          // PushAlert Notification
+          PushAlert.sendNotification({
+            title: "Countdown abgelaufen!",
+            message: wunsch + " ist jetzt da!",
+            url: window.location.href
+          });
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
