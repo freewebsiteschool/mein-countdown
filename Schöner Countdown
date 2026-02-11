@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Mein Countdown</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
+    text-align: center;
+    padding: 50px 20px;
+    color: #333;
+  }
+
+  h1 {
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+
+  input, button {
+    padding: 12px;
+    margin: 10px;
+    font-size: 16px;
+  }
+
+  input {
+    border-radius: 8px;
+    border: none;
+    width: 250px;
+    text-align: center;
+  }
+
+  button {
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background-color: #ff3b2e;
+  }
+
+  #anzeige {
+    font-size: 50px;
+    margin-top: 40px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  #message {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #ff3b2e;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Erstelle deinen Countdown</h1>
+
+<input type="text" id="wunschText" placeholder="Dein Wunsch"><br>
+<input type="datetime-local" id="datumZeit"><br>
+<button onclick="startCountdown()">Countdown starten</button>
+
+<div id="anzeige"></div>
+<div id="message"></div>
+
+<!-- PushAlert-Code -->
+<script src="https://cdn.pushalert.co/integrate_<!-- PushAlert Unified Code -->
+<script type="text/javascript">
+    (function(d, t) {
+        var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        g.src = "https://cdn.pushalert.co/unified_911e5d5b4ee28e15e79e3800dcb2d31f.js";
+        s.parentNode.insertBefore(g, s);
+    }(document, "script"));
+</script>
+<!-- End PushAlert Unified Code --><!-- PushAlert Unified Code -->
+<script type="text/javascript">
+    (function(d, t) {
+        var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        g.src = "https://cdn.pushalert.co/unified_911e5d5b4ee28e15e79e3800dcb2d31f.js";
+        s.parentNode.insertBefore(g, s);
+    }(document, "script"));
+</script>
+<!-- End PushAlert Unified Code --><!-- PushAlert Unified Code -->
+<script type="text/javascript">
+    (function(d, t) {
+        var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+        g.src = "https://cdn.pushalert.co/unified_911e5d5b4ee28e15e79e3800dcb2d31f.js";
+        s.parentNode.insertBefore(g, s);
+    }(document, "script"));
+</script>
+<!-- End PushAlert Unified Code -->.js" async></script>
+
+<script>
+function startCountdown() {
+  const wunsch = document.getElementById("wunschText").value || "Dein Countdown";
+  const datum = new Date(document.getElementById("datumZeit").value).getTime();
+  const anzeige = document.getElementById("anzeige");
+  const message = document.getElementById("message");
+
+  if (!datum) {
+    alert("Bitte wähle ein Datum und eine Uhrzeit!");
+    return;
+  }
+
+  const timer = setInterval(function() {
+    const jetzt = new Date().getTime();
+    const distanz = datum - jetzt;
+
+    const tage = Math.floor(distanz / (1000*60*60*24));
+    const stunden = Math.floor((distanz % (1000*60*60*24)) / (1000*60*60));
+    const minuten = Math.floor((distanz % (1000*60*60)) / (1000*60));
+    const sekunden = Math.floor((distanz % (1000*60)) / 1000);
+
+    anzeige.innerHTML = `${tage}T ${stunden}h ${minuten}m ${sekunden}s`;
+
+    if (distanz < 0) {
+      clearInterval(timer);
+      anzeige.innerHTML = "";
+      message.innerHTML = `${wunsch} ist jetzt da! 🎉`;
+      // PushAlert-Benachrichtigung
+      PushAlert.sendNotification({
+        title: "Countdown abgelaufen!",
+        message: `${wunsch} ist jetzt da!`,
+        url: window.location.href
+      });
+    }
+  }, 1000);
+}
+</script>
+
+</body>
+</html>
